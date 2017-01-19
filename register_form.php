@@ -10,12 +10,16 @@
         <div id="snow">
             <div id="box">
                     <font size="64">VoxTale0</font><br>
-                    <form action="login.php" method="POST">
+                    <form action="register.php" method="POST">
                     <input type="text" name="log" value="Login">
                     <input type="password" name="pass">
-                    <input type="submit" value="Get into!">
-                    </form><br>
-                    <a href="register_form.php">Not registered? Click here</a>
+                    <input type="password" name="pass_rpt"><br>
+                    <input type="radio" name="class" value="m" checked>Miku
+                    <input type="radio" name="class" value="g">Gumi
+                    <input type="radio" name="class" value="r">Rin
+                    <input type="radio" name="class" value="r">Luka<br>
+                    <input type="submit" value="Create waifu!">
+                    </form>
             </div>
         </div>
     </body>
