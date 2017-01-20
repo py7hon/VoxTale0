@@ -10,22 +10,24 @@ if(!empty($_POST['log']) && !empty($_POST['pass'])){
 if(mysqli_connect_errno() != 0){
     echo "Conn error: ".mysqli_connect_error();
 } else {
-    if($res = @$conn -> query(sprintf("SELECT * FROM user WHERE login = '%s' AND pass = md5('%s')",
-    mysqli_real_escape_string($conn, $log), 
-    mysqli_real_escape_string($conn, $pass)))){
+    if($stmt = @$conn -> prepare("SELECT * FROM user WHERE login = ? AND pass = md5(?)")){
+        if(!($stmt -> bind_param('ss', $log, $pass))) echo $stmt -> error;
+        if(!($result = $stmt -> execute())) echo $stmt -> error;
+        $res = $stmt->get_result();
+
         if($res -> num_rows > 0){
-            $ans = $res -> fetch_assoc();
-            $_SESSION['login'] = $ans['login'];
+
+            $row = mysqli_fetch_assoc($res);
+
+            $_SESSION['login'] = $row['login'];
             echo $_SESSION['login'];
-            $res -> free_result();  
+            $stmt -> close(); 
             header('Location: game.php');
 
         } else {
             echo "Login error!";
         }
 
-    } else {
-        echo "Database connection error!";
-    }
+    } else echo $conn -> error;
 }
 ?>

@@ -18,22 +18,24 @@ if($pass != $pass_rpt){
 if(mysqli_connect_errno() != 0){
     echo "Conn error: ".mysqli_connect_error();
 } else {
-    if($res = $conn -> query(sprintf("SELECT * FROM user WHERE login = '%s'",
-    mysqli_real_escape_string($conn, $log)))){
-        if($res -> num_rows == 0){
-            $conn -> query(sprintf("INSERT INTO user(login, pass, class) 
-            VALUES('%s', md5('%s'), '%s')", 
-            mysqli_real_escape_string($conn, $log),
-            mysqli_real_escape_string($conn, $pass),
-            mysqli_real_escape_string($conn, $class)));
+    if($stmt = $conn -> prepare("SELECT * FROM user WHERE login = ?")){
+    if(!($stmt -> bind_param('s', $log))) echo $stmt -> error;
+    if(!($stmt -> execute())) echo $stmt -> error;
+    
+    $res = $stmt -> get_result();
+
+    if($res -> num_rows == 0){
+        $stmt -> close();
+        if($stmt = $conn -> prepare("INSERT INTO user(login, pass, class) VALUES (?, md5(?), ?)")){
+            if(!($stmt -> bind_param('sss', $log, $pass, $class))) echo $stmt -> error;
+            if(!($stmt -> execute())) echo $stmt -> error();
+            $stmt -> close();
             header('Location: index.php');
-
+            } echo $conn -> error;
         } else {
-            echo "Login is used!";
+        echo "Login is used!";
         }
-
-    } else {
-        echo "Database connection error!";
-    }
+    } else echo $conn -> error;
 }
+
 ?>
