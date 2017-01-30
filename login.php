@@ -20,7 +20,6 @@ if(mysqli_connect_errno() != 0){
             $row = mysqli_fetch_assoc($res);
 
             $_SESSION['login'] = $row['login'];
-            echo $_SESSION['login'];
             $stmt -> close(); 
             header('Location: game.php');
 

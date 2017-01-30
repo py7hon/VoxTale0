@@ -20,9 +20,18 @@ if(empty($_SESSION['login'])){
             
             <div id="container">
                 <div id="menu">
+                    <div class="button">News</div>
+                    <div class="button">Resources</div>
+                    <div class="button">Equipment</div>
+                    <div class="button">Buildings and army</div>
+                    <div class="button">Private messages</div>
+                    <div class="button">Account</div>
+                    <div class="button">Logout</div>
                 </div>
 
                 <div id="right">
+                    <div class="bar">Top players</div>
+                    <div class="bar">Lottery winners</div>
                 </div>
 
                 <div id="content">
