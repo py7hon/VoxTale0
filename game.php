@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(empty($_SESSION['login'])){
+    header("Location:");
+}
+?>
 <html>
     <head>
         <title>VoxTale0</title>
@@ -20,6 +26,10 @@
                 </div>
 
                 <div id="content">
+                <?php
+                    echo "Logged as ".$_SESSION['login']."<br>";
+                ?>
+                <a href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

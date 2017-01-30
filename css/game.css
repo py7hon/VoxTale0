@@ -35,3 +35,21 @@ html{
     height: 700px;
     float: right;
 }
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    color: lightgray;
+}
+
+a:hover {
+    opacity: 0.5;
+    transition: 1s;
+}
+
+a:active {
+    opacity: 1;
+}
