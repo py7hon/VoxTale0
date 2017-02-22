@@ -1,0 +1,40 @@
+<?php
+include("config.php");
+session_start();
+
+if(!empty($_POST['pass']) && !empty($_POST['pass_chg']) && !empty($_SESSION['login'])) {
+    $pass = $_POST['pass'];
+    $pass_chg = $_POST['pass_chg'];
+    $pass_chg_rpt = $_POST['pass_chg_rpt'];
+    $log = $_SESSION['login'];
+} else header('Location: account.php');
+
+if($pass_chg != $pass_chg_rpt){
+    echo "Password mismatch!";
+    exit();
+}
+
+if(mysqli_connect_errno() != 0){
+    echo "Conn error: ".mysqli_connect_error();
+} else {
+    if($stmt = $conn -> prepare("SELECT * FROM user WHERE login = ? AND pass = md5(?)")){
+    if(!($stmt -> bind_param('ss', $log, $pass))) echo $stmt -> error;
+    if(!($stmt -> execute())) echo $stmt -> error;
+    
+    $res = $stmt -> get_result();
+
+    if($res -> num_rows == 1){
+        $stmt -> close();
+        if($stmt = $conn -> prepare("UPDATE user SET pass = md5(?) WHERE login = ?")){
+            if(!($stmt -> bind_param('ss', $pass_chg, $log))) echo $stmt -> error;
+            if(!($stmt -> execute())) echo $stmt -> error();
+            $stmt -> close();
+            header('Location: account.php');
+            } echo $conn -> error;
+        } else {
+        echo "Password is wrong!";
+        }
+    } else echo $conn -> error;
+}
+
+?>

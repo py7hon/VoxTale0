@@ -17,7 +17,7 @@
                     <input type="radio" name="class" value="m" checked>Miku
                     <input type="radio" name="class" value="g">Gumi
                     <input type="radio" name="class" value="r">Rin
-                    <input type="radio" name="class" value="r">Luka<br>
+                    <input type="radio" name="class" value="l">Luka<br>
                     <input type="submit" value="Create waifu!">
                     </form>
             </div>

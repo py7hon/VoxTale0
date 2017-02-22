@@ -3,6 +3,7 @@ session_start();
 if(empty($_SESSION['login'])){
     header("Location:");
 }
+$login = $_SESSION['login'];
 ?>
 <html>
     <head>
@@ -19,26 +20,27 @@ if(empty($_SESSION['login'])){
             </div>
             
             <div id="container">
-                <div id="menu">
-                    <div class="button">News</div>
-                    <div class="button">Resources</div>
-                    <div class="button">Equipment</div>
-                    <div class="button">Buildings and army</div>
-                    <div class="button">Private messages</div>
-                    <div class="button">Account</div>
-                    <div class="button">Logout</div>
-                </div>
+                <?php
+                    include("menu.php");
+                ?>
 
                 <div id="right">
-                    <div class="bar">Top players</div>
-                    <div class="bar">Lottery winners</div>
+                    <div class="bar">
+                    <?php
+                        include("top.php");
+                    ?>
+                    </div>
+                    <div class="bar">
+                    <?php
+                        include("lottery.php");
+                    ?>
+                    </div>
                 </div>
 
                 <div id="content">
                 <?php
-                    echo "Logged as ".$_SESSION['login']."<br>";
+                    echo "Logged as ".$login."<br>";
                 ?>
-                <a href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

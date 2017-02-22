@@ -8,6 +8,10 @@ if(!empty($_POST['log']) && !empty($_POST['pass'] &&
     $pass = $_POST['pass'];
     $pass_rpt = $_POST['pass_rpt'];
     $class = $_POST['class'];
+    if($class != 'm' && $class != 'g' && $class != 'r' && $class != 'l' && $class != 'p'){
+        echo "Class is not supported!";
+        exit();
+    }
 } else header('Location: register_form.php');
 
 if($pass != $pass_rpt){
